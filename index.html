@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>../cristian-bravo</title>
+    <meta
+      name="description"
+      content="hi, my name is cristian bravo. i'm an software developer / educator / ux. i engage not only in creating with the technology that defines the present era but also in exploring its various facets"
+    />
+    <meta name="author" content="cristian bravo" />
+    <!-- social media stuff -->
+    <meta property="og:title" content="cristian bravo" />
+    <meta
+      property="og:description"
+      content="hi, my name is cristian bravo. i'm an software developer / educator / ux. i engage not only in creating with the technology that defines the present era but also in exploring its various facets"
+    />
+    <meta
+      property="og:image"
+      content="http://nickbriz.com/images/nickbriz.com.png"
+    />
+    <meta property="og:url" content="http://nickbriz.com" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="og:site_name" content="nick briz" />
+    <meta name="twitter:site" content="@nbriz" />
+
+    <link rel="icon" type="image/jpeg" href="/images/favicon.jpg" />
+
+    <link rel="stylesheet" href="/css/better-serif.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
+
+    <style>
+      #info {
+        position: absolute;
+        z-index: 2;
+        bottom: 20vh;
+        overflow-wrap: break-word;
+        max-width: 25vw;
+        opacity: 0;
+      }
+
+      #menu {
+        position: absolute;
+        z-index: 2;
+        left: calc(25vw - 5.2vw);
+        top: 20vh;
+        overflow-wrap: break-word;
+        max-width: 25vw;
+        opacity: 0;
+      }
+
+      #menu > * {
+        display: block;
+      }
+
+      @media (max-width: 900px) {
+        /* NOTE: media query must match js/home/bg.js*/
+        #info {
+          position: static;
+          margin: 10vw;
+          margin-top: 40vh;
+          margin-bottom: 50vh;
+          max-width: 100%;
+        }
+        #menu {
+          position: static;
+          margin: 10vw 12vw;
+          max-width: 154px;
+        }
+        #menu > * {
+          margin: 10px 0px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section id="bg-element"></section>
+
+    <div id="menu">
+      <a href="https://www.linkedin.com/in/cristianbravoq/" data-link="work">cristianbravo.work</a>
+      <a href="https://github.com/cristianbravoq" data-link="news">cristianbravo.news</a>
+      <a href="#" id="emailLink">cristianbravo.email</a>
+    </div>
+
+    <div id="info">
+      hi, my name is cristian bravo. i'm a software developer / educator / ux.
+      i engage not only in creating with the technology that defines the present
+      era but also in exploring its various facets.
+      there's a lot to celebrate + criticize about the digital ecosystem we're
+      all living in + becoming increasingly dependent on... so i stay pretty
+      <a href="https://www.linkedin.com/in/cristianbravoq/" data-link="work">busy</a>. more
+      <a href="https://github.com/cristianbravoq" data-link="news">about me here</a> or
+      <a href="#" id="emailLink">get in touch</a> 
+      if u need help w/something or just wanna chat.
+    </div>
+
+    <script src="/stats-not-tracks.js"></script>
+    <script src="/js/libs/three.min.js"></script>
+    <script src="/js/modules/Maths.js"></script>
+    <script src="/js/modules/CharSwap.js"></script>
+    <script src="/js/home/LowPolyPlane.js"></script>
+    <script src="/js/home/bg.js"></script>
+    <script>
+      const bg = new indexBG({ ele: "#bg-element" });
+      const nfo = document.querySelector("#info");
+      const men = document.querySelector("#menu");
+      const selectors = ["#info", "#menu > a"];
+      const tmpEles = [];
+
+      window.addEventListener("scroll", onScroll);
+      window.addEventListener("resize", onResize);
+      window.addEventListener("load", setup);
+
+      document.getElementById('emailLink').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevenir el comportamiento predeterminado del enlace
+
+    var emailAddress = 'cristian.bravoq@hotmail.com';
+    var subject = 'about that';
+    var body = 'Hi Cristian, //';
+
+    var mailtoLink = 'mailto:' + emailAddress + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+
+    // Abrir el cliente de correo predeterminado
+    window.location.replace(mailtoLink);
+
+  });
+
+      function setup() {
+        onResize();
+        onScroll();
+        swapWithZalgo();
+        setTimeout(() => {
+          swapBack(() => setupLinks());
+          nfo.style.opacity = 1;
+          men.style.opacity = 1;
+        }, 500);
+      }
+
+      function onResize() {
+        nfo.style.left = `calc(75vw - ${nfo.offsetWidth / 2}px)`;
+
+        const menW = men.offsetHeight + innerWidth * 0.12 * 2;
+        const menH = men.offsetHeight + innerWidth * 0.1 * 2;
+        const brdr = innerWidth * 0.05;
+        const t = brdr;
+        const r = brdr;
+        const b = innerHeight - menH - brdr + 20;
+        const l = menW * 0.7 - brdr;
+        document.querySelector(
+          "#bg-canvas"
+        ).style.borderWidth = `${t}px ${r}px ${b}px ${l}px`;
+      }
+
+      function onScroll() {
+        const o = Maths.map(window.scrollY, 0, men.offsetHeight, 1, 0);
+        document.querySelector("#bg-canvas").style.opacity = o;
+      }
+
+      function setupLinks() {
+        document.body.querySelectorAll("a").forEach((a) => {
+          a.onclick = (e) => {
+            bg.transitionOut();
+            const loc = e.target.dataset.link;
+            const org = location.origin;
+            fadeOut(() => {
+              if (org.includes(".com")) location = org.replace("com", loc);
+              else location = `${org}/${loc}`;
+              console.log(loc);
+            });
+          };
+        });
+      }
+
+      function swapWithZalgo() {
+        const zalgo = "̶̢̛̬̝̯̘̯̻̤͕͔͍͚̗̼̜̤͎̼͍̻̝̣̬̤̟͈͎̲̿̓͋̔̔̽̑̍̏͒͊̈̏̕͝͝l̷̛͖̉̃̏̾́̔́̾̀͋̇́͂̔̓̓̒̋̓̍̓͘̚̚͝͝";
+        for (let i = 0; i < selectors.length; i++) {
+          document.querySelectorAll(selectors[i]).forEach((ele) => {
+            const tmp = document.createElement("div");
+            tmp.innerHTML = ele.innerHTML;
+            tmpEles.push(tmp);
+            const count = ele.textContent.length;
+            ele.innerHTML = [...Array(count)]
+              .map((c, i) => {
+                const ran = Math.floor(Math.random() * zalgo.length);
+                return zalgo[ran];
+              })
+              .join("");
+          });
+        }
+      }
+
+      function swapBack(callback) {
+        let count = 0;
+        for (let i = 0; i < selectors.length; i++) {
+          document.querySelectorAll(selectors[i]).forEach((ele) => {
+            new CharSwap({
+              from: ele,
+              to: tmpEles[count],
+              colors: ["#000", "#00c7e4", "#ffbbff"],
+              set: "zalgo",
+              zalgo: 20,
+              intervals: "random",
+              delay: 2000,
+              hold: 150,
+            }).swap(callback);
+            count++;
+          });
+        }
+      }
+
+      function fadeOut(callback) {
+        for (let i = 0; i < selectors.length; i++) {
+          document.querySelectorAll(selectors[i]).forEach((ele) => {
+            new CharSwap({
+              from: ele,
+              to: document.createElement("span"),
+              colors: ["#000", "#00c7e4", "#ffbbff"],
+              set: "zalgo",
+              zalgo: 20,
+              intervals: "random",
+              hold: 50,
+            }).swap(callback);
+          });
+        }
+      }
+    </script>
+  </body>
+</html>
