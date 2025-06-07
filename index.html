@@ -77,9 +77,9 @@
     <section id="bg-element"></section>
 
     <div id="menu">
-      <a href="https://www.linkedin.com/in/cristianbravoq/" data-link="work">cbravo.work</a>
-      <a href="https://github.com/cristianbravoq" data-link="news">cbravo.news</a>
-      <a href="https://cristianbravoq.github.io/info/" id="emailLink">cbravo.email</a>
+      <a href="https://www.linkedin.com/in/cristianbravoq/" target="_blank" rel="noopener noreferrer">cbravo.work</a>
+      <a href="https://github.com/cristianbravoq" target="_blank" rel="noopener noreferrer">cbravo.news</a>
+      <a href="#" id="emailLink">cbravo.email</a>
     </div>
 
     <div id="info">
@@ -88,9 +88,9 @@
       era but also in exploring its various facets.
       there's a lot to celebrate + criticize about the digital ecosystem we're
       all living in + becoming increasingly dependent on... so i stay pretty
-      <a href="https://www.linkedin.com/in/cristianbravoq/" data-link="work">busy</a>. more
-      <a href="https://github.com/cristianbravoq" data-link="news">about me here</a> or
-      <a href="https://cristianbravoq.github.io/info/" id="emailLink2">get in touch</a> 
+      <a href="https://www.linkedin.com/in/cristianbravoq/" target="_blank" rel="noopener noreferrer">busy</a>. more
+      <a href="https://github.com/cristianbravoq" target="_blank" rel="noopener noreferrer">about me here</a> or
+      <a href="#" id="emailLink2">get in touch</a> 
       if u need help w/something or just wanna chat.
     </div>
 
@@ -170,16 +170,19 @@
 
       function setupLinks() {
         document.body.querySelectorAll("a").forEach((a) => {
-          a.onclick = (e) => {
-            bg.transitionOut();
-            const loc = e.target.dataset.link;
-            const org = location.origin;
-            fadeOut(() => {
-              if (org.includes(".com")) location = org.replace("com", loc);
-              else location = `${org}/${loc}`;
-              console.log(loc);
-            });
-          };
+          const isExternal = a.hasAttribute("target") || a.href.startsWith("http");
+          if (!isExternal && a.dataset.link) {
+            a.onclick = (e) => {
+              e.preventDefault(); // evita navegación predeterminada
+              bg.transitionOut();
+              const loc = e.target.dataset.link;
+              const org = location.origin;
+              fadeOut(() => {
+                if (org.includes(".com")) location = org.replace("com", loc);
+                else location = `${org}/${loc}`;
+              });
+            };
+          }
         });
       }
 
