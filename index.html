@@ -4,25 +4,43 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>../cristian-bravo</title>
+    <title>cristian bravo · bonsAI founder + edtech developer</title>
     <meta
       name="description"
-      content="hi, my name is cristian bravo. i'm an software developer / educator / ux. i engage not only in creating with the technology that defines the present era but also in exploring its various facets"
+      content="cristian bravo, creator + ceo of bonsAI: personalized practice for schools, on the student's phone. also leads the architecture of flori at coschool, social-emotional learning over whatsapp for 50+ schools in colombia."
     />
     <meta name="author" content="cristian bravo" />
     <!-- social media stuff -->
-    <meta property="og:title" content="cristian bravo" />
+    <meta property="og:title" content="cristian bravo · bonsAI founder + edtech developer" />
     <meta
       property="og:description"
-      content="hi, my name is cristian bravo. i'm an software developer / educator / ux. i engage not only in creating with the technology that defines the present era but also in exploring its various facets"
+      content="cristian bravo, creator + ceo of bonsAI: personalized practice for schools, on the student's phone. also leads the architecture of flori at coschool, social-emotional learning over whatsapp for 50+ schools in colombia."
     />
     <meta
       property="og:image"
       content="https://github.com/cristianbravoq.png"
     />
-    <meta property="og:url" content="https://github.com/cristianbravoq" />
     <meta name="twitter:card" content="summary" />
     <meta property="og:site_name" content="cristian-bravo" />
+    <meta property="og:type" content="profile" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Cristian Bravo",
+        "jobTitle": "Creator & CEO, BonsAI",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "BonsAI",
+          "url": "https://www.bonsai.college"
+        },
+        "knowsAbout": ["EdTech", "Software architecture", "Personalized learning", "Social-emotional learning"],
+        "sameAs": [
+          "https://www.linkedin.com/in/cristianbravoq/",
+          "https://github.com/cristianbravoq"
+        ]
+      }
+    </script>
 
     <link rel="icon" type="image/png" href="images/Bonsailogblack.png" />
 
@@ -53,8 +71,19 @@
         display: block;
       }
 
-      html {
-        scroll-behavior: smooth;
+      @media (prefers-reduced-motion: no-preference) {
+        html {
+          scroll-behavior: smooth;
+        }
+      }
+
+      /* scroll cue under the colored box (desktop only) */
+      #more {
+        position: absolute;
+        z-index: 2;
+        left: 25vw;
+        top: 90vh;
+        opacity: 0;
       }
 
       #experience {
@@ -81,6 +110,7 @@
 
       #experience h2 {
         margin-bottom: 4vh;
+        scroll-margin-top: 12vh;
       }
 
       #experience .job {
@@ -125,8 +155,8 @@
         #info {
           position: static;
           margin: 10vw;
-          margin-top: 40vh;
-          margin-bottom: 50vh;
+          margin-top: 12vh;
+          margin-bottom: 15vh;
           max-width: 100%;
         }
         #menu {
@@ -136,6 +166,9 @@
         }
         #menu > * {
           margin: 10px 0px;
+        }
+        #more {
+          display: none;
         }
       }
     </style>
@@ -152,19 +185,22 @@
     </div>
 
     <div id="info">
-      hi, my name is cristian bravo. i'm a software developer / educator / ux.
-      i engage not only in creating with the technology that defines the present
-      era but also in exploring its various facets.
-      there's a lot to celebrate + criticize about the digital ecosystem we're
-      all living in + becoming increasingly dependent on... so i stay pretty
-      <a href="https://www.linkedin.com/in/cristianbravoq/" target="_blank" rel="noopener noreferrer">busy</a>. more
-      <a href="https://github.com/cristianbravoq" target="_blank" rel="noopener noreferrer">about me here</a> or
-      <a href="mailto:cristian.bravoq@hotmail.com?subject=about%20that&amp;body=Hi%20Cristian%2C%20%2F%2F">get in touch</a> 
-      if u need help w/something or just wanna chat.
+      hi, i'm cristian bravo. software developer / educator / ux.
+      these days i'm building <a href="#bonsai">bonsAI</a>, my company: each
+      student practices their teacher's lesson plan on their phone, a few
+      minutes at a time, at their own level. i also lead the architecture of
+      <a href="#flori">flori</a> at coschool... social-emotional learning over
+      whatsapp for 50+ schools in colombia. i like tech that meets schools
+      where they already are. see my <a href="#recent-work">recent work</a>,
+      <a href="https://github.com/cristianbravoq" target="_blank" rel="noopener noreferrer">my code</a>, or
+      <a href="mailto:cristian.bravoq@hotmail.com?subject=about%20that&amp;body=Hi%20Cristian%2C%20%2F%2F">write me</a>
+      if you teach, run a school or are building something similar.
     </div>
 
+    <a id="more" href="#recent-work">recent work ↓</a>
+
     <section id="experience" aria-label="recent work">
-      <h2>recent work</h2>
+      <h2 id="recent-work">recent work</h2>
 
       <article id="bonsai" class="job">
         <h3>
@@ -228,10 +264,15 @@
     <script src="js/home/LowPolyPlane.js"></script>
     <script src="js/home/bg.js"></script>
     <script>
-      const bg = new indexBG({ ele: "#bg-element" });
+      const reduceMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
+      const bg = new indexBG({ ele: "#bg-element", reduceMotion });
       const nfo = document.querySelector("#info");
       const men = document.querySelector("#menu");
-      const selectors = ["#info", "#menu > a"];
+      const more = document.querySelector("#more");
+      const selectors = ["#info", "#menu > a", "#more"];
+      let introDone = false;
       const tmpEles = [];
 
       window.addEventListener("scroll", onScroll);
@@ -242,11 +283,29 @@
       function setup() {
         onResize();
         onScroll();
-        swapWithZalgo();
-        setTimeout(() => {
-          swapBack(() => setupLinks());
+        if (reduceMotion) {
+          // no glitch intro: show the real text right away
           nfo.style.opacity = 1;
           men.style.opacity = 1;
+          introDone = true;
+          onScroll();
+          setupLinks();
+          return;
+        }
+        // screen readers: the text is scrambled while the intro runs
+        nfo.setAttribute("aria-busy", "true");
+        men.setAttribute("aria-busy", "true");
+        swapWithZalgo();
+        setTimeout(() => {
+          swapBack(() => {
+            nfo.removeAttribute("aria-busy");
+            men.removeAttribute("aria-busy");
+            setupLinks();
+          });
+          nfo.style.opacity = 1;
+          men.style.opacity = 1;
+          introDone = true;
+          onScroll();
         }, 500);
       }
 
@@ -269,6 +328,11 @@
         const o = Maths.map(window.scrollY, 0, men.offsetHeight, 1, 0);
         document.querySelector("#bg-canvas").style.opacity = o;
         document.querySelector("#grad-bg").style.opacity = o;
+        if (introDone) {
+          const v = Math.min(Math.max(o, 0), 1);
+          more.style.opacity = v;
+          more.style.visibility = v > 0 ? "visible" : "hidden";
+        }
       }
 
       function setupLinks() {
