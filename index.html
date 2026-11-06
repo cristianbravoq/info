@@ -63,6 +63,12 @@
         margin: 0 25vw;
         padding-top: 100vh;
         padding-bottom: 40vh;
+        /* the top padding overlaps the hero; let clicks pass through it */
+        pointer-events: none;
+      }
+
+      #experience > * {
+        pointer-events: auto;
       }
 
       #experience h2,
@@ -138,8 +144,8 @@
     <section id="bg-element"></section>
 
     <div id="menu">
-      <a href="https://www.linkedin.com/in/cristianbravoq/" target="_blank" rel="noopener noreferrer">cbravo.work</a>
-      <a href="https://github.com/cristianbravoq" target="_blank" rel="noopener noreferrer">cbravo.news</a>
+      <a href="https://www.linkedin.com/in/cristianbravoq/" target="_blank" rel="noopener noreferrer">cbravo.linkedin</a>
+      <a href="https://github.com/cristianbravoq" target="_blank" rel="noopener noreferrer">cbravo.github</a>
       <a href="#bonsai">cbravo.bonsai</a>
       <a href="#flori">cbravo.flori</a>
       <a href="mailto:cristian.bravoq@hotmail.com?subject=about%20that&amp;body=Hi%20Cristian%2C%20%2F%2F">cbravo.email</a>
