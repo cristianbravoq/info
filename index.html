@@ -18,13 +18,13 @@
     />
     <meta
       property="og:image"
-      content="http://nickbriz.com/images/nickbriz.com.png"
+      content="https://github.com/cristianbravoq.png"
     />
     <meta property="og:url" content="https://github.com/cristianbravoq" />
-    <meta name="instagram:card" content="summary_large_image" />
+    <meta name="twitter:card" content="summary" />
     <meta property="og:site_name" content="cristian-bravo" />
 
-    <link rel="icon" type="image/jpeg" href="images/Bonsailogblack.png" />
+    <link rel="icon" type="image/png" href="images/Bonsailogblack.png" />
 
     <link rel="stylesheet" href="css/better-serif.css" />
     <link rel="stylesheet" href="css/styles.css" />
@@ -53,7 +53,68 @@
         display: block;
       }
 
+      html {
+        scroll-behavior: smooth;
+      }
+
+      #experience {
+        position: relative;
+        z-index: 2;
+        margin: 0 25vw;
+        padding-top: 100vh;
+        padding-bottom: 40vh;
+      }
+
+      #experience h2,
+      #experience h3 {
+        font-weight: normal;
+        font-size: inherit;
+        line-height: inherit;
+        margin: 0;
+      }
+
+      #experience h2 {
+        margin-bottom: 4vh;
+      }
+
+      #experience .job {
+        border-left: 6px solid #000;
+        border-image: linear-gradient(0deg, #00c7e4, #ffbbff) 1;
+        padding: 0 0 0 20px;
+        margin: 0 0 6vh;
+        scroll-margin-top: 12vh;
+      }
+
+      #experience .job p {
+        margin: 0 0 1em;
+      }
+
+      #experience .job p:last-child {
+        margin-bottom: 0;
+      }
+
+      #experience ul {
+        margin: 0;
+        padding-left: 1.2em;
+      }
+
+      #experience .role,
+      #experience .for {
+        opacity: 0.6;
+      }
+
+      #experience .back {
+        margin-top: 8vh;
+      }
+
       @media (max-width: 900px) {
+        #experience {
+          margin: 0 10vw;
+          padding-top: 0;
+        }
+        #experience .job {
+          scroll-margin-top: 10vh;
+        }
         /* NOTE: media query must match js/home/bg.js*/
         #info {
           position: static;
@@ -79,7 +140,9 @@
     <div id="menu">
       <a href="https://www.linkedin.com/in/cristianbravoq/" target="_blank" rel="noopener noreferrer">cbravo.work</a>
       <a href="https://github.com/cristianbravoq" target="_blank" rel="noopener noreferrer">cbravo.news</a>
-      <a href="#" id="emailLink">cbravo.email</a>
+      <a href="#bonsai">cbravo.bonsai</a>
+      <a href="#flori">cbravo.flori</a>
+      <a href="mailto:cristian.bravoq@hotmail.com?subject=about%20that&amp;body=Hi%20Cristian%2C%20%2F%2F">cbravo.email</a>
     </div>
 
     <div id="info">
@@ -90,11 +153,69 @@
       all living in + becoming increasingly dependent on... so i stay pretty
       <a href="https://www.linkedin.com/in/cristianbravoq/" target="_blank" rel="noopener noreferrer">busy</a>. more
       <a href="https://github.com/cristianbravoq" target="_blank" rel="noopener noreferrer">about me here</a> or
-      <a href="#" id="emailLink2">get in touch</a> 
+      <a href="mailto:cristian.bravoq@hotmail.com?subject=about%20that&amp;body=Hi%20Cristian%2C%20%2F%2F">get in touch</a> 
       if u need help w/something or just wanna chat.
     </div>
 
-    <script src="stats-not-tracks.js"></script>
+    <section id="experience" aria-label="recent work">
+      <h2>recent work</h2>
+
+      <article id="bonsai" class="job">
+        <h3>
+          <a href="https://www.bonsai.college" target="_blank" rel="noopener noreferrer">bonsAI</a>
+          <span class="for">my company</span>
+        </h3>
+        <p class="role">creator + ceo</p>
+        <p>
+          personalized practice for schools: the teacher uploads their lesson
+          plan and each student practices it in short sessions on their phone,
+          adjusted to what they already master.
+        </p>
+        <p>
+          under the hood: a skills graph in neo4j updated with probabilistic
+          estimation every session, llm-generated content with answer
+          verification + per-call cost telemetry, a react native mobile app and
+          a next.js teacher dashboard.
+        </p>
+        <p>school pilots in preparation for 2027.</p>
+      </article>
+
+      <article id="flori" class="job">
+        <h3>
+          <a href="https://www.flori.com.co/" target="_blank" rel="noopener noreferrer">flori</a>
+          <span class="for">at coschool</span>
+        </h3>
+        <p class="role">architecture + operations lead</p>
+        <p>
+          social-emotional learning over whatsapp for teachers, families and
+          students in 50+ schools across colombia.
+        </p>
+        <p>
+          i lead its architecture and operations: a gateway with multiple
+          numbers and providers (twilio + meta cloud api) on top of queues,
+          idempotency and signed webhooks; an assistant with rag, voice and a
+          deterministic crisis protocol; and per-school authorization validated
+          on the server.
+        </p>
+      </article>
+
+      <div id="approach" class="job">
+        <p>
+          what moves me: bringing personalized learning to real schools with the
+          technology they already have... the phone and whatsapp.
+        </p>
+        <p>how i work:</p>
+        <ul>
+          <li>business rules first; the code follows.</li>
+          <li>staging before production, versioned migrations and verified backups before touching data.</li>
+          <li>ai to build fast, without delegating judgment.</li>
+          <li>costs, minors' privacy and failure modes thought through from the design.</li>
+        </ul>
+      </div>
+
+      <p class="back"><a href="#top">back to top ↑</a></p>
+    </section>
+
     <script src="js/libs/three.min.js"></script>
     <script src="js/modules/Maths.js"></script>
     <script src="js/modules/CharSwap.js"></script>
@@ -111,31 +232,6 @@
       window.addEventListener("resize", onResize);
       window.addEventListener("load", setup);
 
-      document.getElementById('emailLink').addEventListener('click', function (event) {
-          event.preventDefault(); // Prevenir el comportamiento predeterminado del enlace
-
-          var emailAddress = 'cristian.bravoq@hotmail.com';
-          var subject = 'about that';
-          var body = 'Hi Cristian, //';
-
-          var mailtoLink = 'mailto:' + emailAddress + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-
-          // Abrir el cliente de correo predeterminado
-          window.location.replace(mailtoLink);
-      });
-
-      document.getElementById('emailLink2').addEventListener('click', function (event) {
-          event.preventDefault(); // Prevenir el comportamiento predeterminado del enlace
-
-          var emailAddress = 'cristian.bravoq@hotmail.com';
-          var subject = 'about that';
-          var body = 'Hi Cristian, //';
-
-          var mailtoLink = 'mailto:' + emailAddress + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-
-          // Abrir el cliente de correo predeterminado
-          window.location.replace(mailtoLink);
-      });
 
       function setup() {
         onResize();
@@ -166,6 +262,7 @@
       function onScroll() {
         const o = Maths.map(window.scrollY, 0, men.offsetHeight, 1, 0);
         document.querySelector("#bg-canvas").style.opacity = o;
+        document.querySelector("#grad-bg").style.opacity = o;
       }
 
       function setupLinks() {
