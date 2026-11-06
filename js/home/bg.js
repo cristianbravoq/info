@@ -2,6 +2,8 @@
 class indexBG {
   constructor (opts) {
     this.ele = document.querySelector(opts.ele)
+    // prefers-reduced-motion: draw the background once and keep it still
+    this.still = !!opts.reduceMotion
 
     this.ele.innerHTML = `<div>
       <div id="grad-bg"></div>
@@ -45,6 +47,10 @@ class indexBG {
     this.gbg = document.querySelector('#grad-bg')
     this.gbg.style.transition = this.tra
     this.gbg.style.zIndex = '-2'
+    if (this.still) {
+      this.gbg.style.background = 'linear-gradient(-45deg, #00c7e4, #ffbbff)'
+      return
+    }
     setInterval(() => {
       d++
       this.gbg.style.background = `linear-gradient(${d}deg, #00c7e4, #ffbbff)`
@@ -75,6 +81,13 @@ class indexBG {
     light.position.set(0, 0, 10)
     scene.add(light)
 
+    this.draw = () => this.renderer.render(scene, camera)
+    if (this.still) {
+      plane.update()
+      this.draw()
+      return
+    }
+
     const animate = () => {
       window.requestAnimationFrame(animate)
 
@@ -96,6 +109,7 @@ class indexBG {
     this.renderer.domElement.style.top = (innerWidth < this.mxw) ? 0 : '12vh'
     this.renderer.domElement.style.left = (innerWidth < this.mxw) ? 0 : '25vw'
     this.renderer.setSize(width, height)
+    if (this.still) this.draw()
   }
 
   transitionOut () {
